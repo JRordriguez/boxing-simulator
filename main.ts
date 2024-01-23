@@ -140,10 +140,44 @@ let player_1 = sprites.create(img`
     . . f f . . . f f f . . . 
     `, SpriteKind.Player)
 player_1.ay = 300
-controller.moveSprite(player_1, 100, 0)
-player_1.setStayInScreen(true)
+controller.player1.moveSprite(player_1, 100, 0)
 let jump = 0
-game.onUpdate(function () {
-    let camera_sprite: Sprite = null
-    camera_sprite.setPosition(0, 0)
-})
+let player_2 = sprites.create(img`
+    . . . . . . e 2 2 2 2 2 . . . . 
+    . . . . . e 2 2 d 2 2 2 2 . . . 
+    . . . . . e 2 2 2 2 2 2 2 e . . 
+    . . . . . e 2 2 2 2 2 2 2 e . . 
+    . . . c c f f e 2 2 2 2 2 e . . 
+    . . . c b f f f f e 2 2 e e . . 
+    . . . c d f f f b 2 e f e e e . 
+    . . . c b 1 1 1 1 2 f d 2 2 e e 
+    . . . . . c c c e e f d 2 2 e e 
+    . . . . . . c e e 2 2 e d 1 1 b 
+    . . . . . . . e 2 2 2 2 e f f . 
+    . . . . d d f f 2 2 d d f f . . 
+    . . . . d d f f e e d d f f . . 
+    . . . . . . . . . f f f f . . . 
+    . . . . . . . . f f f e e e . . 
+    . . . . . . . f f f e e e e . . 
+    `, SpriteKind.Player)
+controller.player2.moveSprite(player_2, 100, 0)
+player_2.ay = 300
+let camera_sprite = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+scene.cameraFollowSprite(camera_sprite)
