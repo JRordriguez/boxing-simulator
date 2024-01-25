@@ -1,3 +1,9 @@
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
+function doSomething () {
+	
+}
 let jump = 0
 scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -121,7 +127,7 @@ scene.setBackgroundImage(img`
     3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
     3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
     `)
-tiles.setCurrentTilemap(tilemap`level1`)
+tiles.setCurrentTilemap(tilemap`level4`)
 let player_1 = sprites.create(img`
     . . . . . . . . . . . . . 
     . . . f f f f f f . . . . 
@@ -162,22 +168,3 @@ let player_2 = sprites.create(img`
     `, SpriteKind.Player)
 controller.player2.moveSprite(player_2, 100, 0)
 player_2.ay = 300
-let camera_sprite = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Player)
-scene.cameraFollowSprite(camera_sprite)
