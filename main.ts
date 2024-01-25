@@ -1,9 +1,13 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 	
 })
+controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+	
+})
 function doSomething () {
 	
 }
+game.showLongText("BOXING SIMULATOR", DialogLayout.Top)
 let jump = 0
 scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -148,6 +152,7 @@ let player_1 = sprites.create(img`
     `, SpriteKind.Player)
 player_1.ay = 300
 controller.player1.moveSprite(player_1, 100, 0)
+tiles.placeOnTile(player_1, tiles.getTileLocation(1, 5))
 let player_2 = sprites.create(img`
     . . . . . . e 2 2 2 2 2 . . . . 
     . . . . . e 2 2 d 2 2 2 2 . . . 
@@ -168,3 +173,9 @@ let player_2 = sprites.create(img`
     `, SpriteKind.Player)
 controller.player2.moveSprite(player_2, 100, 0)
 player_2.ay = 300
+tiles.placeOnTile(player_2, tiles.getTileLocation(8, 5))
+player_1.changeScale(0.5, ScaleAnchor.Middle)
+player_2.changeScale(0.5, ScaleAnchor.Middle)
+game.onUpdate(function () {
+	
+})
