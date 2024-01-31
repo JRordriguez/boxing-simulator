@@ -1,12 +1,98 @@
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (player_2.tileKindAt(TileDirection.Left, assets.tile`transparency16`)) {
+        tiles.setTileAt(player_2.tilemapLocation().getNeighboringLocation(CollisionDirection.Left), sprites.dungeon.darkGroundNorth)
+        tiles.setWallAt(player_2.tilemapLocation().getNeighboringLocation(CollisionDirection.Left), true)
+    } else {
+        tiles.setTileAt(player_2.tilemapLocation(), assets.tile`transparency16`)
+        tiles.setWallAt(player_2.tilemapLocation().getNeighboringLocation(CollisionDirection.Left), false)
+    }
 })
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-	
+    projectile = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . 2 2 1 1 1 1 2 . . 
+        . . . . 2 2 3 3 1 1 1 1 1 1 . . 
+        . . 3 3 3 3 1 1 1 1 1 1 1 1 . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . . 3 3 2 2 3 1 1 1 1 1 1 1 . . 
+        . . . . . . 2 2 3 1 1 1 1 2 . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, player_2, 50, 0)
 })
 function doSomething () {
 	
 }
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    projectile = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . 2 2 1 1 1 1 2 . . 
+        . . . . 2 2 3 3 1 1 1 1 1 1 . . 
+        . . 3 3 3 3 1 1 1 1 1 1 1 1 . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . . 3 3 2 2 3 1 1 1 1 1 1 1 . . 
+        . . . . . . 2 2 3 1 1 1 1 2 . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, player_1, 50, 0)
+})
+controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (player_1.tileKindAt(TileDirection.Right, assets.tile`transparency16`)) {
+        tiles.setTileAt(player_1.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), sprites.dungeon.darkGroundNorth)
+        tiles.setWallAt(player_1.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), true)
+    } else {
+        tiles.setTileAt(player_1.tilemapLocation(), assets.tile`transparency16`)
+        tiles.setWallAt(player_1.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), false)
+    }
+})
+sprites.onDestroyed(SpriteKind.Projectile, function (sprite) {
+    sprite.startEffect(effects.fire, 500)
+    if (sprite.image.equals(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . 2 2 1 1 1 1 2 . . 
+        . . . . 2 2 3 3 1 1 1 1 1 1 . . 
+        . . 3 3 3 3 1 1 1 1 1 1 1 1 . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . . 3 3 2 2 3 1 1 1 1 1 1 1 . . 
+        . . . . . . 2 2 3 1 1 1 1 2 . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `)) {
+        if (sprite.tileKindAt(TileDirection.Right, sprites.dungeon.darkGroundNorth)) {
+            tiles.setTileAt(sprite.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), assets.tile`transparency16`)
+            tiles.setWallAt(sprite.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), false)
+        }
+    } else {
+        if (sprite.tileKindAt(TileDirection.Left, sprites.dungeon.darkGroundNorth)) {
+            tiles.setTileAt(sprite.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), assets.tile`transparency16`)
+            tiles.setWallAt(sprite.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), false)
+        }
+    }
+})
+let projectile: Sprite = null
+let player_2: Sprite = null
+let player_1: Sprite = null
 game.showLongText("BOXING SIMULATOR", DialogLayout.Top)
 let jump = 0
 scene.setBackgroundImage(img`
@@ -132,7 +218,7 @@ scene.setBackgroundImage(img`
     3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
     `)
 tiles.setCurrentTilemap(tilemap`level4`)
-let player_1 = sprites.create(img`
+player_1 = sprites.create(img`
     . . . . . . . . . . . . . 
     . . . f f f f f f . . . . 
     . f f f f f f f f f . . . 
@@ -153,7 +239,7 @@ let player_1 = sprites.create(img`
 player_1.ay = 300
 controller.player1.moveSprite(player_1, 100, 0)
 tiles.placeOnTile(player_1, tiles.getTileLocation(1, 5))
-let player_2 = sprites.create(img`
+player_2 = sprites.create(img`
     . . . . . . e 2 2 2 2 2 . . . . 
     . . . . . e 2 2 d 2 2 2 2 . . . 
     . . . . . e 2 2 2 2 2 2 2 e . . 
