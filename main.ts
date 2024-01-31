@@ -1,14 +1,163 @@
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
-})
-controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-	
-})
-function doSomething () {
-	
+namespace SpriteKind {
+    export const Player2 = SpriteKind.create()
+    export const health = SpriteKind.create()
+    export const health_2 = SpriteKind.create()
 }
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    if (player_1.isHittingTile(CollisionDirection.Bottom)) {
+        jump1 = 0
+    }
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (jump1 < 1) {
+        jump1 += 1
+        player_1.vy = -150
+    }
+})
+scene.onHitWall(SpriteKind.Player2, function (sprite, location) {
+    if (player_2.isHittingTile(CollisionDirection.Bottom)) {
+        jump2 = 0
+    }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Player2, function (sprite, otherSprite) {
+    if (player_1.x < player_2.x) {
+        player_1.setPosition(player_1.x - 2.3, player_1.y)
+        player_2.setPosition(player_2.x + 2.3, player_2.y)
+    } else {
+        player_2.setPosition(player_2.x - 2.3, player_1.y)
+        player_1.setPosition(player_1.x + 2.3, player_2.y)
+    }
+})
+controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
+    if (jump2 < 1) {
+        jump2 += 1
+        player_2.vy = -150
+    }
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    player_1,
+    [img`
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . f f e e 4 4 4 e f . . . 
+        . . . . . 4 d d e 2 2 2 f . . . 
+        . . . . . e d d e 2 2 2 f . . . 
+        . . . . . f e e f 4 5 5 f . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . . . . f f f . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e e e d d d f . . . 
+        . . . . . f 4 d d e 4 e f . . . 
+        . . . . . f e d d e 2 2 f . . . 
+        . . . . f f f e e f 5 5 f f . . 
+        . . . . f f f f f f f f f f . . 
+        . . . . . f f . . . f f f . . . 
+        `,img`
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . f f e e 4 4 4 e f . . . 
+        . . . . . 4 d d e 2 2 2 f . . . 
+        . . . . . e d d e 2 2 2 f . . . 
+        . . . . . f e e f 4 5 5 f . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . . . . f f f . . . . . . 
+        `],
+    200,
+    false
+    )
+})
+controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    player_2,
+    [img`
+        . . . . f f f f f f . . . . . . 
+        . . . f 8 f 5 5 5 5 f f . . . . 
+        . . f 8 8 8 f 5 5 5 5 f f . . . 
+        . . f 5 5 5 5 f f 5 5 5 f . . . 
+        . f 5 8 8 8 8 5 5 f f f f . . . 
+        . f 8 5 f f f f 8 8 8 5 f . . . 
+        . f f f 5 5 5 f f f f f f f . . 
+        . f 5 5 4 4 f b 5 4 4 5 f f . . 
+        . . f 5 d d f 1 4 d 4 5 5 f . . 
+        . . . f d d d d 4 5 5 5 f . . . 
+        . . . f 5 4 4 4 5 5 f f . . . . 
+        . . . f 8 8 8 5 d d 4 . . . . . 
+        . . . f 8 8 8 5 d d 5 . . . . . 
+        . . . f 5 5 4 f 5 5 f . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . . . . f f f . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 8 f 5 5 5 5 f f . . . . 
+        . . f 8 8 8 f 5 5 5 5 f f . . . 
+        . . f 5 5 5 5 f f 5 5 5 f . . . 
+        . f 5 8 8 8 8 5 5 f f f f . . . 
+        . f 8 5 f f f f 8 8 8 5 f . . . 
+        . f f f 5 5 5 f f f f f f f . . 
+        . f 5 5 4 4 f b 5 4 4 5 f f . . 
+        . . f 5 d d f 1 4 d 4 5 5 f . . 
+        . . . f d d d 5 5 5 5 5 f . . . 
+        . . . f 5 4 5 d d 4 f . . . . . 
+        . . . f 8 8 5 d d 5 f . . . . . 
+        . . f f 5 5 f 5 5 f f f . . . . 
+        . . f f f f f f f f f f . . . . 
+        . . . f f f . . . f f . . . . . 
+        `,img`
+        . . . . f f f f f f . . . . . . 
+        . . . f 8 f 5 5 5 5 f f . . . . 
+        . . f 8 8 8 f 5 5 5 5 f f . . . 
+        . . f 5 5 5 5 f f 5 5 5 f . . . 
+        . f 5 8 8 8 8 5 5 f f f f . . . 
+        . f 8 5 f f f f 8 8 8 5 f . . . 
+        . f f f 5 5 5 f f f f f f f . . 
+        . f 5 5 4 4 f b 5 4 4 5 f f . . 
+        . . f 5 d d f 1 4 d 4 5 5 f . . 
+        . . . f d d d d 4 5 5 5 f . . . 
+        . . . f 5 4 4 4 5 5 f f . . . . 
+        . . . f 8 8 8 5 d d 4 . . . . . 
+        . . . f 8 8 8 5 d d 5 . . . . . 
+        . . . f 5 5 4 f 5 5 f . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . . . . f f f . . . . . . . 
+        `],
+    200,
+    false
+    )
+})
+let jump1 = 0
+let player_2: Sprite = null
+let player_1: Sprite = null
+let jump2 = 0
 game.showLongText("BOXING SIMULATOR", DialogLayout.Top)
-let jump = 0
+jump2 = 0
 scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -132,50 +281,49 @@ scene.setBackgroundImage(img`
     3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
     `)
 tiles.setCurrentTilemap(tilemap`level4`)
-let player_1 = sprites.create(img`
-    . . . . . . . . . . . . . 
-    . . . f f f f f f . . . . 
-    . f f f f f f f f f . . . 
-    . f f f f f f c f f f . . 
-    f f f f c f f f c f f f . 
-    f c f f c c f f f c c f f 
-    f c c f f f f e f f f f f 
-    f f f f f f f e e f f f . 
-    f f e e f b f e e f f f . 
-    f f e 4 e 1 f 4 4 f f . . 
-    . f f f e 4 4 4 4 f . . . 
-    . 4 4 4 e e e e f f . . . 
-    . e 4 4 e 7 7 7 7 f . . . 
-    . f e e f 6 6 6 6 f f . . 
-    . f f f f f f f f f f . . 
-    . . f f . . . f f f . . . 
+mp.setPlayerState(mp.playerSelector(mp.PlayerNumber.One), MultiplayerState.life, 5)
+player_1 = sprites.create(img`
+    . . . . f f f f f f . . . 
+    . . f f e e e e f 2 f . . 
+    . f f e e e e f 2 2 2 f . 
+    . f e e e f f e e e e f . 
+    . f f f f e e 2 2 2 2 e f 
+    . f e 2 2 2 f f f f e 2 f 
+    f f f f f f f e e e f f f 
+    f f e 4 4 e b f 4 4 e e f 
+    f e e 4 d 4 1 f d d e f . 
+    . f e e e 4 d d d d f . . 
+    . . f f e e 4 4 4 e f . . 
+    . . . 4 d d e 2 2 2 f . . 
+    . . . e d d e 2 2 2 f . . 
+    . . . f e e f 4 5 5 f . . 
+    . . . . f f f f f f . . . 
+    . . . . . f f f . . . . . 
     `, SpriteKind.Player)
-player_1.ay = 300
+player_1.ay = 410
 controller.player1.moveSprite(player_1, 100, 0)
 tiles.placeOnTile(player_1, tiles.getTileLocation(1, 5))
-let player_2 = sprites.create(img`
-    . . . . . . e 2 2 2 2 2 . . . . 
-    . . . . . e 2 2 d 2 2 2 2 . . . 
-    . . . . . e 2 2 2 2 2 2 2 e . . 
-    . . . . . e 2 2 2 2 2 2 2 e . . 
-    . . . c c f f e 2 2 2 2 2 e . . 
-    . . . c b f f f f e 2 2 e e . . 
-    . . . c d f f f b 2 e f e e e . 
-    . . . c b 1 1 1 1 2 f d 2 2 e e 
-    . . . . . c c c e e f d 2 2 e e 
-    . . . . . . c e e 2 2 e d 1 1 b 
-    . . . . . . . e 2 2 2 2 e f f . 
-    . . . . d d f f 2 2 d d f f . . 
-    . . . . d d f f e e d d f f . . 
-    . . . . . . . . . f f f f . . . 
-    . . . . . . . . f f f e e e . . 
-    . . . . . . . f f f e e e e . . 
-    `, SpriteKind.Player)
+player_2 = sprites.create(img`
+    . . . f f f f f f . . . . 
+    . . f 8 f 5 5 5 5 f f . . 
+    . f 8 8 8 f 5 5 5 5 f f . 
+    . f 5 5 5 5 f f 5 5 5 f . 
+    f 5 8 8 8 8 5 5 f f f f . 
+    f 8 5 f f f f 8 8 8 5 f . 
+    f f f 5 5 5 f f f f f f f 
+    f 5 5 4 4 f b 5 4 4 5 f f 
+    . f 5 d d f 1 4 d 4 5 5 f 
+    . . f d d d d 4 5 5 5 f . 
+    . . f 5 4 4 4 5 5 f f . . 
+    . . f 8 8 8 5 d d 4 . . . 
+    . . f 8 8 8 5 d d 5 . . . 
+    . . f 5 5 4 f 5 5 f . . . 
+    . . . f f f f f f . . . . 
+    . . . . . f f f . . . . . 
+    `, SpriteKind.Player2)
 controller.player2.moveSprite(player_2, 100, 0)
-player_2.ay = 300
+player_2.ay = 410
 tiles.placeOnTile(player_2, tiles.getTileLocation(8, 5))
+mp.changePlayerStateBy(mp.playerSelector(mp.PlayerNumber.Two), MultiplayerState.life, 2)
 player_1.changeScale(0.5, ScaleAnchor.Middle)
 player_2.changeScale(0.5, ScaleAnchor.Middle)
-game.onUpdate(function () {
-	
-})
