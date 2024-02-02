@@ -14,10 +14,39 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         player_1.vy = -150
     }
 })
+controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (player_2.tileKindAt(TileDirection.Left, assets.tile`transparency16`)) {
+        tiles.setTileAt(player_2.tilemapLocation().getNeighboringLocation(CollisionDirection.Left), sprites.dungeon.darkGroundNorth)
+        tiles.setWallAt(player_2.tilemapLocation().getNeighboringLocation(CollisionDirection.Left), true)
+    } else {
+        tiles.setTileAt(player_2.tilemapLocation().getNeighboringLocation(CollisionDirection.Left), assets.tile`transparency16`)
+        tiles.setWallAt(player_2.tilemapLocation().getNeighboringLocation(CollisionDirection.Left), false)
+    }
+})
 scene.onHitWall(SpriteKind.Player2, function (sprite, location) {
     if (player_2.isHittingTile(CollisionDirection.Bottom)) {
         jump2 = 0
     }
+})
+controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    projectile = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . 2 2 2 2 . . . . . . . . . 
+        . . 2 1 1 1 1 2 2 . . . . . . . 
+        . . 1 1 1 1 1 1 3 3 2 2 . . . . 
+        . . 1 1 1 1 1 1 1 1 3 3 3 3 . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . . 1 1 1 1 1 1 1 3 2 2 3 3 . . 
+        . . 2 1 1 1 1 3 2 2 . . . . . . 
+        . . . 2 2 2 2 . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, player_2, -50, 0)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Player2, function (sprite, otherSprite) {
     if (player_1.x < player_2.x) {
@@ -152,6 +181,36 @@ controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
     false
     )
 })
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    projectile = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . 2 2 1 1 1 1 2 . . 
+        . . . . 2 2 3 3 1 1 1 1 1 1 . . 
+        . . 3 3 3 3 1 1 1 1 1 1 1 1 . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . . 3 3 2 2 3 1 1 1 1 1 1 1 . . 
+        . . . . . . 2 2 3 1 1 1 1 2 . . 
+        . . . . . . . . . 2 2 2 2 . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, player_1, 50, 0)
+})
+controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (player_1.tileKindAt(TileDirection.Right, assets.tile`transparency16`)) {
+        tiles.setTileAt(player_1.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), sprites.dungeon.darkGroundNorth)
+        tiles.setWallAt(player_1.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), true)
+    } else {
+        tiles.setTileAt(player_1.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), assets.tile`transparency16`)
+        tiles.setWallAt(player_1.tilemapLocation().getNeighboringLocation(CollisionDirection.Right), false)
+    }
+})
+let projectile: Sprite = null
 let jump1 = 0
 let player_2: Sprite = null
 let player_1: Sprite = null
