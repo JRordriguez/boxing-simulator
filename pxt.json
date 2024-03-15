@@ -1,5 +1,5 @@
 {
-    "name": "boxing simulator",
+    "name": "boxing simulator - Copy",
     "description": "",
     "dependencies": {
         "device": "*",
@@ -17,7 +17,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.12.46",
+        "target": "1.12.49",
         "targetId": "arcade"
     },
     "supportedTargets": [
